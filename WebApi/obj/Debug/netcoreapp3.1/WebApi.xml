@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>WebApi</name>
+    </assembly>
+    <members>
+        <member name="M:WebApi.Controlers.AuthController.Login(WebApi.Models.Login)">
+            <summary>
+            Umożliwia zalogowanie się użytkownikowi
+            </summary>
+        </member>
+        <member name="M:WebApi.Controlers.PotworyController.Get">
+            <summary>
+            Zwraca wszystkie potwory z bazy danych
+            </summary>
+        </member>
+        <member name="M:WebApi.Controlers.PotworyController.GetOne(System.Int32)">
+            <summary>
+            Zwraca jednego potwora, o podanym id z bazy danych
+            </summary>
+        </member>
+        <member name="M:WebApi.Controlers.PotworyController.Delete(System.Int32)">
+            <summary>
+            Usuwa wybranego potwora z baczy dnaych
+            </summary>
+        </member>
+        <member name="M:WebApi.Controlers.PotworyController.Update(System.Int32,WebApi.Models.Potwory)">
+            <summary>
+            Aktualizuje dane wybranego potwora
+            </summary>
+        </member>
+        <member name="M:WebApi.Controlers.PotworyController.Create(WebApi.Models.Potwory)">
+            <summary>
+            Dodaje do bazy danych nowego potwora
+            </summary>
+        </member>
+        <member name="M:WebApi.Controlers.UserController.Get">
+            <summary>
+            Zwraca wszystkich użytkowników z bazy danych
+            </summary>
+        </member>
+        <member name="M:WebApi.Controlers.UserController.GetOne(System.Int32)">
+            <summary>
+            Zwraca jednego użytkownika, o podanym id z bazy danych
+            </summary>
+        </member>
+    </members>
+</doc>
