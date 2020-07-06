@@ -9,7 +9,7 @@
             Umożliwia zalogowanie się użytkownikowi
             </summary>
         </member>
-        <member name="M:WebApi.Controlers.PotworyController.Get">
+        <member name="M:WebApi.Controlers.PotworyController.Get(System.String,System.String)">
             <summary>
             Zwraca wszystkie potwory z bazy danych
             </summary>

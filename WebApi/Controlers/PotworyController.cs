@@ -17,10 +17,15 @@ namespace WebApi.Controlers
     public class PotworyController : ControllerBase
     {
         private DatabaseContext context { get; set; }
+        SqliteConnection connection;
+        List<Potwory> pot;
 
         public PotworyController(DatabaseContext con)
         {
             context = con;
+            connection = new SqliteConnection("Data Source=Potwory.db");
+            pot = new List<Potwory>();
+            fill_list();
         }
 
         /// <summary>
@@ -28,9 +33,33 @@ namespace WebApi.Controlers
         /// </summary>
         
         [HttpGet, Authorize]
-        public IEnumerable<Potwory> Get()
+        public ActionResult<IEnumerable<Potwory>> Get([FromQuery]string sort, [FromQuery]string filtr)
         {
-            return context.Potwory.ToList();
+            List<Potwory> tmp = pot.Select(x => new Potwory { Id = x.Id, Img = x.Img, Nazwa = x.Nazwa, Opis = x.Opis }).ToList();
+            if (!String.IsNullOrEmpty(sort))
+            {
+                switch (sort)
+                {
+                    case "nazasc":
+                        tmp = tmp.OrderBy(x => x.Nazwa).ToList();
+                        break;
+                    case "nazdecs":
+                        tmp = tmp.OrderByDescending(x => x.Nazwa).ToList();
+                        break;
+                    case "opasc":
+                        tmp = tmp.OrderBy(x => x.Opis).ToList();
+                        break;
+                    case "opdesc":
+                        tmp = tmp.OrderByDescending(x => x.Opis).ToList();
+                        break;
+                }
+            }
+            if (!String.IsNullOrEmpty(filtr))
+            {
+                tmp = tmp.Where(x => x.Nazwa == filtr).ToList();
+            }
+            return tmp;
+            //return context.Potwory.ToList();
         }
 
         /// <summary>
@@ -82,6 +111,26 @@ namespace WebApi.Controlers
             return true;
 
         }
+
+        void fill_list()
+        {
+            pot.Clear();
+            string cmd = "select * from Potwory;";
+            SqliteCommand sql_cmd = new SqliteCommand(cmd, connection);
+            connection.Open();
+            SqliteDataReader data = sql_cmd.ExecuteReader();
+            while (data.Read())
+            {
+                long id = (long)data[0];
+                string naz = (string)data[1];
+                string img = (string)data[2];
+                string opi = (string)data[3];
+                pot.Add(new Potwory { Id = (int)id, Nazwa = naz, Img = img, Opis = opi });
+            }
+            
+            connection.Close();
+        }
+       
     }
 
 }
